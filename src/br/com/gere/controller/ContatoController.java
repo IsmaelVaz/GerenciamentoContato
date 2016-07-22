@@ -11,13 +11,13 @@ import javafx.scene.control.*;
 public class ContatoController implements Initializable{
 	@FXML
 	TextField txtNome, txtTelefone;
-	
+
 	@FXML
 	Button btnInserir;
-	
+
 	@FXML
 	ListView<String> lstView;
-	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
@@ -27,16 +27,15 @@ public class ContatoController implements Initializable{
 	public void Inserir(){
 		if(!txtNome.getText().isEmpty() && !txtTelefone.getText().isEmpty()){
 			Connection con = MySqlConection.ConectarDB();
-			
+
 			String sql = "INSERT INTO contact (name, phone) value (?, ?)";
-			
+
 			PreparedStatement parametros;
-			
+			//anifyvpiauhvuiva7cgvoiahv
 			try {
 				parametros = con.prepareStatement(sql);
 				parametros.setString(1, txtNome.getText());
 				parametros.setString(2, txtTelefone.getText());
-				
 				parametros.executeUpdate();
 				con.close();
 			} catch (SQLException e) {
@@ -50,7 +49,7 @@ public class ContatoController implements Initializable{
 		Connection con = MySqlConection.ConectarDB();
 		lstView.getItems().clear();
 		String sql = "select * from contact;";
-		
+
 		try {
 			ResultSet rs = con.createStatement().executeQuery(sql);
 			while(rs.next()){
