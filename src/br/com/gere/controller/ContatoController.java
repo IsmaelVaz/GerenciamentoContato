@@ -32,6 +32,7 @@ public class ContatoController implements Initializable{
 
 			PreparedStatement parametros;
 			//anifyvpiauhvuiva7cgvoiahv
+			//TODO: TA FODA EM
 			try {
 				parametros = con.prepareStatement(sql);
 				parametros.setString(1, txtNome.getText());
