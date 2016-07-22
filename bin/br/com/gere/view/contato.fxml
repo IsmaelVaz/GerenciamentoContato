@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="600.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="br.com.gere.controller.ContatoController">
+   <children>
+      <Label layoutX="44.0" layoutY="120.0" prefHeight="36.0" prefWidth="117.0" text="Nome" AnchorPane.leftAnchor="44.0" AnchorPane.rightAnchor="339.0" AnchorPane.topAnchor="120.0">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="44.0" layoutY="175.0" prefHeight="36.0" prefWidth="117.0" text="Telefone" AnchorPane.leftAnchor="44.0" AnchorPane.rightAnchor="339.0" AnchorPane.topAnchor="175.0">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="183.0" layoutY="44.0" prefHeight="36.0" prefWidth="134.0" text="Contatos" AnchorPane.leftAnchor="183.0" AnchorPane.rightAnchor="183.0" AnchorPane.topAnchor="44.0">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <ListView fx:id="lstView" layoutX="14.0" layoutY="323.0" prefHeight="263.0" prefWidth="471.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="15.0" />
+      <Button fx:id="btnInserir" layoutX="398.0" layoutY="261.0" mnemonicParsing="false" text="Button" AnchorPane.leftAnchor="398.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="261.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <TextField fx:id="txtTelefone" layoutX="183.0" layoutY="126.0" prefHeight="25.0" prefWidth="259.0" AnchorPane.bottomAnchor="394.0" AnchorPane.leftAnchor="183.0" AnchorPane.rightAnchor="58.0" AnchorPane.topAnchor="181.0" />
+      <TextField fx:id="txtNome" layoutX="183.0" layoutY="126.0" prefHeight="25.0" prefWidth="259.0" AnchorPane.bottomAnchor="449.0" AnchorPane.leftAnchor="183.0" AnchorPane.rightAnchor="58.0" AnchorPane.topAnchor="126.0" />
+   </children>
+</AnchorPane>
