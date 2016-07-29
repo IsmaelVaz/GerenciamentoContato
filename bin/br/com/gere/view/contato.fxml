@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="br.com.gere.controller.ContatoController">
+<AnchorPane prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.gere.controller.ContatoController">
    <children>
       <Label layoutX="44.0" layoutY="120.0" prefHeight="36.0" prefWidth="117.0" text="Nome" AnchorPane.leftAnchor="44.0" AnchorPane.rightAnchor="339.0" AnchorPane.topAnchor="120.0">
          <font>
@@ -25,7 +24,7 @@
          </font>
       </Label>
       <ListView fx:id="lstView" layoutX="14.0" layoutY="323.0" prefHeight="263.0" prefWidth="471.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="15.0" />
-      <Button fx:id="btnInserir" layoutX="398.0" layoutY="261.0" mnemonicParsing="false" text="Button" AnchorPane.leftAnchor="398.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="261.0">
+      <Button fx:id="btnInserir" layoutX="342.0" layoutY="261.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="134.0" text="Enviar" AnchorPane.leftAnchor="342.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="261.0">
          <font>
             <Font size="18.0" />
          </font>

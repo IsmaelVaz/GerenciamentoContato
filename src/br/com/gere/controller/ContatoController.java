@@ -1,12 +1,18 @@
 package br.com.gere.controller;
 
+import java.beans.EventHandler;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
+
+import javax.swing.JOptionPane;
+
 import br.com.gere.helper.MySqlConection;
+import br.com.gere.model.GerenciamentoModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 
 public class ContatoController implements Initializable{
 	@FXML
@@ -16,50 +22,102 @@ public class ContatoController implements Initializable{
 	Button btnInserir;
 
 	@FXML
-	ListView<String> lstView;
+	ListView<GerenciamentoModel> lstView;
 
+	static int AUXID;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		btnInserir.setOnAction(l-> Inserir());
+
+		/*lstView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+			PrepararEdt();
+		});*/
+		lstView.setOnMouseClicked(new javafx.event.EventHandler<MouseEvent>() {
+			@Override
+		    public void handle(MouseEvent click) {
+		        if (click.getClickCount() == 2) {
+		        	Deletar();
+		        	txtNome.setText("");
+					txtTelefone.setText("");
+					btnInserir.setText("Enviar");
+		        }else if(click.getClickCount() == 1){
+		        	PrepararEdt();
+		        }
+		    }
+		});
 		PreencherLista();
 	}
-	public void Inserir(){
-		if(!txtNome.getText().isEmpty() && !txtTelefone.getText().isEmpty()){
-			Connection con = MySqlConection.ConectarDB();
+	public void Deletar(){
+		Connection con= MySqlConection.ConectarDB();
+		GerenciamentoModel itemSelected = lstView.getSelectionModel().getSelectedItem();
 
-			String sql = "INSERT INTO contact (name, phone) value (?, ?)";
-
-			PreparedStatement parametros;
-			//anifyvpiauhvuiva7cgvoiahv
-			//TODO: TA FODA EM
-			try {
-				parametros = con.prepareStatement(sql);
-				parametros.setString(1, txtNome.getText());
-				parametros.setString(2, txtTelefone.getText());
-				parametros.executeUpdate();
-				con.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		boolean retorno = GerenciamentoModel.Deletar(itemSelected);
+		if(retorno){
 			PreencherLista();
+			txtNome.setText("");
+			txtTelefone.setText("");
+		}else{
+			JOptionPane.showMessageDialog(null, "Erro ao Deletar!!");
+		}
+		PreencherLista();
+		txtNome.setText("");
+		txtTelefone.setText("");
+	}
+	public void Inserir(){
+		Connection con= MySqlConection.ConectarDB();
+		if(!txtNome.getText().isEmpty() && !txtTelefone.getText().isEmpty()){
+			if(btnInserir.getText().equals("Enviar")){
+				GerenciamentoModel gere = new GerenciamentoModel();
+				gere.setNome(txtNome.getText());
+				gere.setTelefone(txtTelefone.getText());
+
+				boolean retorno = GerenciamentoModel.Inserir(gere);
+				if(retorno){
+					PreencherLista();
+					txtNome.setText("");
+					txtTelefone.setText("");
+				}else{
+					JOptionPane.showMessageDialog(null, "Erro ao inserir!!");
+				}
+
+			}else if(btnInserir.getText().equals("Atualizar")){
+				GerenciamentoModel gere = new GerenciamentoModel();
+				gere.setNome(txtNome.getText());
+				gere.setTelefone(txtTelefone.getText());
+				gere.setId(AUXID);
+
+				boolean retorno = GerenciamentoModel.Atualizar(gere);
+				if(retorno){
+					PreencherLista();
+					txtNome.setText("");
+					txtTelefone.setText("");
+				}else{
+					JOptionPane.showMessageDialog(null, "Erro ao Atualizar!!");
+				}
+				PreencherLista();
+				txtNome.setText("");
+				txtTelefone.setText("");
+				btnInserir.setText("Enviar");
+			}
+		}else{
+			JOptionPane.showMessageDialog(null, "Preencha o nome e o telefone!!");
+		}
+	}
+	public void PrepararEdt(){
+		GerenciamentoModel itemSelected = lstView.getSelectionModel().getSelectedItem();
+		if(itemSelected!=null){
+			GerenciamentoModel newGere = GerenciamentoModel.PreparaEdt(itemSelected);
+			txtNome.setText(newGere.getNome());
+			txtTelefone.setText(newGere.getTelefone());
+			AUXID = newGere.getId();
+			btnInserir.setText("Atualizar");
 		}
 	}
 	public void PreencherLista(){
-		Connection con = MySqlConection.ConectarDB();
 		lstView.getItems().clear();
-		String sql = "select * from contact;";
-
-		try {
-			ResultSet rs = con.createStatement().executeQuery(sql);
-			while(rs.next()){
-				String contato = rs.getString("name")+"-"+rs.getString("phone");
-				lstView.getItems().add(contato);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(GerenciamentoModel.Select()!=null){
+			lstView.getItems().addAll(GerenciamentoModel.Select());
 		}
 	}
 }

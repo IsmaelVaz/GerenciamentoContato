@@ -11,7 +11,7 @@ public class MySqlConection {
 		Connection con = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://10.107.134.38/contatos", "root", "root");
+			con = DriverManager.getConnection("jdbc:mysql://10.107.134.70/contatos", "root", "root");
 		}catch(Exception e){
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
